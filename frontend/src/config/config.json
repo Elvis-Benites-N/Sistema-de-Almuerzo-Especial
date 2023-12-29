@@ -1,0 +1,15 @@
+{
+    "services": {
+        "backend": {
+            "url": "http://localhost:2579/almuerzo-especial-trabajador"
+        }
+    },
+    "constantes": {
+        "fechaMaximaInscripcion": "jueves 30 de noviembre",
+        "fechaMaximaInscripcionDate": "30-11-2023"
+    },
+    "banner": {
+        "mostrar": "true",
+        "nombre": "Desarrollo"
+    }
+}

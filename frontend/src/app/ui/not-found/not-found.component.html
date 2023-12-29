@@ -1,0 +1,45 @@
+<div style="width: 100vw; min-height: 100vh; position: relative">
+  <img
+    src="assets/not-found-background.svg"
+    alt="Background"
+    style="
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    "
+  />
+
+  <div
+    id="container"
+    class="flex flex-wrap align-items-center gap-24 w-100 h-100"
+    style="z-index: 10"
+  >
+    <img
+      src="assets/robot-image.svg"
+      alt="Robot"
+      style="width: 100%;flex: 1 1 520px; max-width: 520px; object-fit: contain;"
+    />
+
+    <div class="flex-column align-items-center gap-24">
+      <h1 nz-typography class="text-center">Página no encontrada</h1>
+      <p nz-typography class="text-center">
+        ¡Ups! Parece que no pudimos encontrar la página que estabas buscando
+      </p>
+      <a routerLink="/" nz-button nzType="primary" nzSize="large">
+        <nz-space nzAlign="end" [nzSize]="6">
+          <img
+            *nzSpaceItem
+            src="assets/rollback-icon.svg"
+            height="16"
+            alt="Atrás"
+          />
+          <span *nzSpaceItem>Volver al inicio</span>
+        </nz-space>
+      </a>
+    </div>
+  </div>
+</div>

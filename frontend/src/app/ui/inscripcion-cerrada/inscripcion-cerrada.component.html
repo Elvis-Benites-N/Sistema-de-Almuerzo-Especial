@@ -1,0 +1,44 @@
+<div id="container">
+  <img id="container__img" src="assets/unmsm-fondo-landscape.png" alt="UNMSM" />
+
+  <div id="container__gradient"></div>
+
+  <div id="container__content" class="flex-column">
+    <navbar
+      style="position: sticky; z-index: 20; width: 100%; top: 0"
+      backgroundColor="none"
+      [isWhite]="true"
+      [useBackdropFilter]="true"
+    ></navbar>
+    <div
+      id="content"
+      class="flex flex-wrap align-items-center justify-content-space-between gap-24"
+    >
+      <div
+        id="content__text"
+        class="flex-column gap-24"
+        style="flex: 1 1 680px; max-width: 680px"
+      >
+        <h1 nz-typograpy style="color: white" class="text-center">
+          ¡Inscripciones cerradas!
+        </h1>
+        <h4 nz-typograpy style="color: white" class="text-center">
+          Queremos informarte que el plazo para inscribirse al almuerzo especial
+          finalizó el pasado {{config.constantes.fechaMaximaInscripcion}}, fecha que se había indicado como
+          límite para competar registros.
+        </h4>
+        <h5 nz-typograpy style="color: white" class="text-center">
+          Agradecemos tu interés por participar en este evento, y lamentamos
+          que ya no sea posible aceptar más postulaciones debido a que dicho
+          periodo de inscripción ha concluido.
+        </h5>
+      </div>
+      <img
+        id="content__img"
+        src="assets/expiration-image.svg"
+        alt="Inscripcion cerrada"
+        style="flex: 1 1 600px; width: 100%;"
+      />
+    </div>
+  </div>
+</div>

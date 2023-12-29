@@ -1,0 +1,15 @@
+<div
+  *ngIf="cargandoRuta; then cargandoRutaTemplate; else rutaCargadaTemplate"
+></div>
+
+<ng-template #cargandoRutaTemplate>
+  <div style="width: 100vw; height: 100vh; display: flex">
+    <span id="loader"></span>
+  </div>
+</ng-template>
+
+<ng-template #rutaCargadaTemplate>
+  <div [@fadeInAnimation]="outlet.isActivated ? outlet.activatedRoute : ''">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+</ng-template>

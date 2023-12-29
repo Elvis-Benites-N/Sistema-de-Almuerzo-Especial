@@ -1,0 +1,26 @@
+<nav
+  style="width: 100%; display: flex"
+  [ngClass]="{ 'border-bottom-material': seMuestraSombra }"
+  [ngStyle]="{
+    'background-color': backgroundColor
+  }"
+>
+  <div
+    id="navbar"
+    class="flex align-items-center justify-content-space-between gap-16"
+    [ngStyle]="{
+      'backdrop-filter': useBackdropFilter?'blur(4px)': ''
+    }"
+  >
+    <figure style="margin: 0; flex: 1 1 80px; max-width: 140px">
+      <img src="assets/unmsm-logo{{isWhite?'-white': ''}}.svg" alt="UNMSM" class="nav__img"/>
+    </figure>
+    <figure style="margin: 0; flex: 1 1 80px; max-width: 140px">
+      <img
+        src="assets/quipucamayoc-logo{{isWhite?'-white': ''}}.svg"
+        alt="QUIPUCAMAYOC"
+        class="nav__img"
+      />
+    </figure>
+  </div>
+</nav>

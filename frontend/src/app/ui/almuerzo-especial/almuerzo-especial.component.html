@@ -1,0 +1,272 @@
+<div class="flex-column" style="min-height: 100vh">
+  <navbar
+    style="position: sticky; z-index: 20; width: 100%; top: 0;"
+  ></navbar>
+
+  <div id="container">
+    <div class="flex-column" style="flex: 1 1; gap: 40px">
+      <section id="card-banner">
+        <!-- FONDO UNMSM -->
+        <img
+          src="assets/unmsm-fondo.png"
+          alt="Fondo UNMSM"
+          style="
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+            border-radius: 10px;
+            z-index: 1;
+          "
+        />
+
+        <!-- SHADOW -->
+        <div
+          style="
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              180deg,
+              rgba(39, 39, 75, 0.2) 0%,
+              rgba(39, 39, 75, 0.6) 73.96%
+            );
+            z-index: 5;
+            position: absolute;
+            border-radius: 10px;
+            left: 0;
+          "
+        ></div>
+
+        <!-- BANNER -->
+        <div id="banner-container" style="position: relative; z-index: 10">
+          <div class="flex-column gap-24">
+            <!-- TITULO -->
+            <h1 nz-typography class="text-center" style="color: white">
+              Sondeo almuerzo especial para administrativos y docentes
+            </h1>
+            <!-- SUBTITULO -->
+            <h5
+              nz-typography
+              class="text-center"
+              style="
+                color: white;
+                font-weight: 400;
+                max-width: 600px;
+                align-self: center;
+              "
+            >
+              Ingresa tus datos e identifícate. Las inscripciones
+              cierran el
+              <b>{{ config.constantes.fechaMaximaInscripcion }}</b
+              >, no te quedes sin tu lugar.
+            </h5>
+          </div>
+
+          <!-- FORMULARIO -->
+          <form
+            nz-form
+            [formGroup]="busquedaTrabajadorForm.formulario"
+            (ngSubmit)="buscarTrabajador()"
+            id="form-container"
+            class="flex flex-wrap gap-16 justify-content-center animate__animated animate__fadeInDown"
+          >
+            <nz-select
+              nzPlaceHolder="Tipo de documento"
+              formControlName="idTipoBusqueda"
+              nzSize="large"
+              style="width: 180px"
+            >
+              <nz-option [nzValue]="1" nzLabel="DNI"></nz-option>
+              <nz-option [nzValue]="2" nzLabel="Código Trabajador"></nz-option>
+            </nz-select>
+
+            <nz-form-item style="flex: 1 0 200px">
+              <nz-form-control>
+                <input
+                  nz-input
+                  type="text"
+                  class="w-100"
+                  maxlength="15"
+                  nzSize="large"
+                  formControlName="palabraClave"
+                />
+              </nz-form-control>
+            </nz-form-item>
+
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="large"
+              [nzLoading]="busquedaTrabajadorForm.enviandoFormulario"
+            >
+              <nz-space nzAlign="end" [nzSize]="6">
+                <ng-container
+                  *ngIf="!busquedaTrabajadorForm.enviandoFormulario"
+                >
+                  <img
+                    *nzSpaceItem
+                    src="assets/search-icon.svg"
+                    height="16"
+                    alt="buscar"
+                  />
+                </ng-container>
+                <span *nzSpaceItem>Buscar</span>
+              </nz-space>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <div style="height: 0px"></div>
+
+      <ng-container [ngSwitch]="estado">
+        <!-- SIN BUSQUEDA -->
+        <img
+          src="assets/unmsm-comedor.svg"
+          alt="UNMSM Almuerzo"
+          style="
+            flex: 1 1;
+            object-position: bottom;
+            object-fit: contain;
+            width: 80%;
+            align-self: center;
+          "
+          *ngSwitchCase="EstadosType.SinBusqueda"
+        />
+
+        <!-- MOSTRAR RESULTADO -->
+        <ng-container *ngSwitchCase="EstadosType.ConResultado">
+          <ng-container *ngTemplateOutlet="ResultadosTemplate"></ng-container>
+        </ng-container>
+
+        <span *ngSwitchDefault>No reconocido</span>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #ResultadosTemplate>
+  <div
+    style="padding: 0 16px; flex: 1; gap: 40px"
+    class="flex-column animate__animated animate__fadeIn"
+  >
+    <div class="flex-column align-items-center">
+      <div id="card-usuario" class="flex p-24 gap-24 align-items-center">
+        <img
+          src="assets/user-male-icon.svg"
+          alt="Usuario"
+          style="margin: 0 auto"
+        />
+
+        <div class="flex-column" style="flex: 1 1 200px">
+          <h5 nz-typography style="color: var(--color-primary)">
+            {{ trabajadorRRHHResponse.trabajador.nombres | uppercase }}
+            {{ trabajadorRRHHResponse.trabajador.apellidos | uppercase }}
+          </h5>
+          <div class="flex flex-wrap align-items-center" style="gap: 8px">
+            <h5 nz-typography>
+              {{ trabajadorRRHHResponse.trabajador.tipoTrabajador }} -
+              {{ trabajadorRRHHResponse.trabajador.estado }}
+            </h5>
+            <nz-tag
+              [nzColor]="
+                trabajadorRRHHResponse.puedeRegistrarse ? 'green' : null
+              "
+            >
+              {{ trabajadorRRHHResponse.trabajador.estadoPlanilla }}
+            </nz-tag>
+          </div>
+        </div>
+        <div class="flex-column">
+          <p nz-typography>DNI</p>
+          <h5 nz-typography>
+            {{ trabajadorRRHHResponse.trabajador.dni }}
+          </h5>
+        </div>
+        <div style="flex: 1 1 0px"></div>
+        <div class="flex-column">
+          <p nz-typography>CÓD. TRABAJADOR</p>
+          <h5 nz-typography>
+            {{ trabajadorRRHHResponse.trabajador.codigoTrabajador || "-" }}
+          </h5>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!trabajadorRRHHResponse.puedeRegistrarse">
+      <div class="flex-column align-items-center">
+        <nz-alert
+          style="max-width: 1000px"
+          [nzType]="
+            trabajadorRRHHResponse.yaFueRegistrado ? 'warning' : 'error'
+          "
+          [nzMessage]="
+            trabajadorRRHHResponse.yaFueRegistrado
+              ? yaInscritoTemplate
+              : trabajadorRRHHResponse.message
+          "
+          nzShowIcon
+        ></nz-alert>
+        <ng-template #yaInscritoTemplate>
+          <p nz-typography>
+            Tu inscripción ya ha sido realizada anteriormente. Gracias por
+            haberte registrado con nosotros.
+          </p>
+        </ng-template>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="trabajadorRRHHResponse.puedeRegistrarse">
+      <form
+        nz-form
+        [formGroup]="registroTrabajadorForm.formulario"
+        (ngSubmit)="registrarTrabajador()"
+      >
+        <div nz-row nzJustify="center">
+          <div nz-col>
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="large"
+              [nzLoading]="registroTrabajadorForm.enviandoFormulario"
+              class="animate__animated animate__heartBeat"
+            >
+              <nz-space nzAlign="end" [nzSize]="6">
+                <ng-container
+                  *ngIf="!registroTrabajadorForm.enviandoFormulario"
+                >
+                  <img
+                    *nzSpaceItem
+                    src="assets/edit-icon.svg"
+                    height="16"
+                    alt="Inscribirme"
+                  />
+                </ng-container>
+                <span *nzSpaceItem>Deseo Participar</span>
+              </nz-space>
+            </button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+    <img
+      src="assets/unmsm-bottom.svg"
+      alt="UNMSM Almuerzo"
+      style="
+        flex: 1 1;
+        object-position: bottom;
+        object-fit: contain;
+        width: 80%;
+        align-self: center;
+      "
+    />
+  </div>
+</ng-template>
+
+<modal-confirmacion
+  [isVisible]="estaAbiertoModalConfirmacion"
+  [handleCancel]="cerrarModalConfirmacion"
+>
+</modal-confirmacion>

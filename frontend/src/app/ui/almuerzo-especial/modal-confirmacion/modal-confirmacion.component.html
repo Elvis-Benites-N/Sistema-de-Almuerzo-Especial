@@ -1,0 +1,45 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzWidth="90%"
+  (nzOnCancel)="handleCancel()"
+  [nzStyle]="{ 'max-width': '480px' }"
+  [nzMaskClosable]="false"
+  [nzClosable]="false"
+  nzCentered
+>
+  <ng-container *nzModalContent>
+    <nz-space nzDirection="vertical" class="w-100" [nzSize]="24">
+      <figure *nzSpaceItem style="margin: 0; display: flex">
+        <img
+          src="assets/success-icon.svg"
+          alt="Exito"
+          style="width: 50%; max-width: 64px; object-fit: cover; margin: auto"
+        />
+      </figure>
+      <h5 *nzSpaceItem nz-typography class="text-center">
+        ¡Tu inscripción se ha realizado con éxito!
+      </h5>
+      <p *nzSpaceItem nz-typography nzType="secondary" class="text-center">
+        Gracias por registrarte para participar del almuerzo especial organizado
+        por la universidad
+      </p>
+      <div *nzSpaceItem nz-row nzJustify="end">
+        <div nz-col>
+          <button nz-button nzType="primary" (click)="handleCancel()">
+            <nz-space nzAlign="end" [nzSize]="6">
+              <img
+                *nzSpaceItem
+                src="assets/thumb-up-icon.svg"
+                height="16"
+                alt="Inscribirme"
+              />
+              <span *nzSpaceItem>Entendido</span>
+            </nz-space>
+          </button>
+        </div>
+      </div>
+    </nz-space>
+  </ng-container>
+
+  <ng-container *nzModalFooter></ng-container>
+</nz-modal>

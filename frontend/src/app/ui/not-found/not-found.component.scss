@@ -1,0 +1,26 @@
+#container {
+  padding: 0 200px;
+  position: absolute;
+  justify-content: space-between;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (max-width: 630px) {
+  #container {
+    padding: 16px;
+  }
+}
+
+@media (min-width: 631px) and (max-width: 1260px) {
+  #container {
+    padding: 24px;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1261px) and (max-width: 1460px) {
+  #container {
+    padding: 100px;
+  }
+}
